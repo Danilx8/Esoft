@@ -1,0 +1,9 @@
+server:
+  port: "80"
+  host: "0.0.0.0"
+database:
+  username: "example"
+  password: "example"
+  host: "db"
+  port: "27017"
+  name: "polytech-esoft"

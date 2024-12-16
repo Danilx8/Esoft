@@ -1,5 +1,3 @@
-include .env
-
 up: rebuild
 	docker compose up -d
 

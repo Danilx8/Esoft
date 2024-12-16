@@ -2,16 +2,18 @@ package main
 
 import (
 	"esoft/app/bootstrap"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-
-	app := bootstrap.App()
-
-	env := app.Env
+	app, err := bootstrap.App()
+	if err != nil {
+		fmt.Printf("Get error while start app: %v", err)
+		return
+	}
 
 	//timeout := time.Duration(env.ContextTimeout) * time.Second
 
@@ -24,5 +26,5 @@ func main() {
 		})
 	})
 
-	e.Run(env.ServerAddress)
+	e.Run(fmt.Sprintf(":%s", app.Config.Server.Port))
 }
