@@ -11,7 +11,7 @@ down:
 	docker compose down
 
 migrate: up-db
-	for file in $$(ls sql_scripts/); do \
+	for file in $$(ls -tr sql_scripts/); do \
 		docker exec -t esoft-db-1 psql -U example -d polytech-esoft -f "/sql_scripts/$$file"; \
 	done
 
