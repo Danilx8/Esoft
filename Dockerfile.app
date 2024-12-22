@@ -6,6 +6,7 @@ COPY go.mod .
 COPY go.sum .
 
 COPY ./app ./app
+COPY ./docs ./docs
 COPY ./configs /build
 
 RUN go build -o main ./app/cmd/main.go
@@ -16,7 +17,6 @@ FROM alpine
 WORKDIR /build
 
 COPY ./configs /build/configs
-COPY ./docs /build/docs
 COPY --from=builder /build/main /build/main
 RUN chmod +x /build/main
 
