@@ -141,7 +141,7 @@ func (u ClientController) DeleteClient(c *gin.Context) {
 // @Success 200 {object} domain.Client
 // @Failure 400 {object} domain.ErrorMessage
 // @Failure 500 {object} domain.ErrorMessage
-// @Router /clients [delete]
+// @Router /clients/search [post]
 func (u ClientController) SearchClients(c *gin.Context) {
 	var client domain.Client
 

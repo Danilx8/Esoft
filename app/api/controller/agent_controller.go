@@ -141,7 +141,7 @@ func (u AgentController) DeleteAgent(c *gin.Context) {
 // @Success 200 {object} domain.Agent
 // @Failure 400 {object} domain.ErrorMessage
 // @Failure 500 {object} domain.ErrorMessage
-// @Router /agents [delete]
+// @Router /agents/search [post]
 func (u AgentController) SearchAgents(c *gin.Context) {
 	var agent domain.Agent
 
