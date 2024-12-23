@@ -11,4 +11,5 @@ func NewAgentRouter(agentController *controller.AgentController, group *gin.Rout
 	group.GET("agents", agentController.GetAgents)
 	group.PUT("agents", agentController.UpdateAgent)
 	group.DELETE("agents", agentController.DeleteAgent)
+	group.POST("agents/search", agentController.SearchAgents)
 }

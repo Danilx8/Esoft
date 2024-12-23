@@ -11,4 +11,5 @@ func NewClientRouter(clientController *controller.ClientController, group *gin.R
 	group.GET("clients", clientController.GetClients)
 	group.PUT("clients", clientController.UpdateClient)
 	group.DELETE("clients", clientController.DeleteClient)
+	group.POST("clients/search", clientController.SearchClients)
 }

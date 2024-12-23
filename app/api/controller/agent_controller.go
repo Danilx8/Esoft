@@ -131,3 +131,33 @@ func (u AgentController) DeleteAgent(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, agent)
 }
+
+// SearchAgent godoc
+// @Summary	Search of agent
+// @Tags Agent
+// @Accept json
+// @Produce json
+// @Param        data    body     domain.Agent true  "scheme of agent"
+// @Success 200 {object} domain.Agent
+// @Failure 400 {object} domain.ErrorMessage
+// @Failure 500 {object} domain.ErrorMessage
+// @Router /agents [delete]
+func (u AgentController) SearchAgents(c *gin.Context) {
+	var agent domain.Agent
+
+	err := c.BindJSON(&agent)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorMessage{Title: "agent schema", Body: err.Error()})
+		return
+	}
+
+	agents, err := u.AgentUsecase.SearchSimilaryAgents(c, &agent)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, domain.ErrorMessage{
+			Title: "Search of agent",
+			Body:  err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, agents)
+}

@@ -2,7 +2,9 @@ package usecase
 
 import (
 	"esoft/app/domain"
+	"esoft/app/internal"
 
+	"github.com/agnivade/levenshtein"
 	"github.com/gin-gonic/gin"
 )
 
@@ -47,4 +49,23 @@ func (u *AgentUsecase) DeleteAgent(c *gin.Context, client *domain.Agent) error {
 		return err
 	}
 	return nil
+}
+
+func (u *AgentUsecase) SearchSimilaryAgents(c *gin.Context, agent *domain.Agent) (*[]domain.Agent, error) {
+	var agents []domain.Agent
+	err := u.AgentRepository.GetAgents(&agents)
+	if err != nil {
+		return nil, err
+	}
+	target := internal.ComposerFLM(agent.FirstName, agent.LastName, agent.MiddleName)
+	foundAgents := make([]domain.Agent, 0, len(agents)/8)
+	for i := range agents {
+		tmpInput := internal.ComposerFLM(agents[i].FirstName, agents[i].LastName, agents[i].MiddleName)
+		distance := levenshtein.ComputeDistance(target, tmpInput)
+		if distance <= 3 {
+			foundAgents = append(foundAgents, agents[i])
+		}
+	}
+
+	return &foundAgents, nil
 }
