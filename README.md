@@ -5,4 +5,4 @@ To run this project check for the ```.env```(you can copy all lines from ```.env
 make up
 ```
 
-And we have swagger in localhost:8080/docs/index.html
+And we have swagger in http://localhost:8080/docs/index.html
