@@ -73,7 +73,6 @@ func (u *agentRepository) DeleteAgent(agent *domain.Agent) error {
 		return err
 	}
 	result := u.db.Where("ID = ?", agent.ID).Delete(&agent)
-	fmt.Println("YRES", agent.ID)
 	if result.Error != nil {
 		return result.Error
 	}

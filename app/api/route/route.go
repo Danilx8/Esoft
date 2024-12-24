@@ -12,6 +12,7 @@ import (
 func Setup(db *gorm.DB, e *gin.Engine) {
 	clientRepository := repository.NewClientRepository(db)
 	agentRepository := repository.NewAgentRepository(db)
+	propertyRepository := repository.NewPropertyRepository(db)
 
 	clientController := controller.ClientController{
 		ClientUsecase: usecase.NewClientUsecase(clientRepository),
@@ -19,9 +20,13 @@ func Setup(db *gorm.DB, e *gin.Engine) {
 	agentController := controller.AgentController{
 		AgentUsecase: usecase.NewAgentUsecase(agentRepository),
 	}
+	propertyController := controller.PropertyController{
+		PropertyUsecase: usecase.NewPropertyUsecase(propertyRepository),
+	}
 
 	publicRouter := e.Group("")
 	NewClientRouter(&clientController, publicRouter)
 	NewAgentRouter(&agentController, publicRouter)
+	NewPropertyRouter(&propertyController, publicRouter)
 	SwaggerRouter(publicRouter)
 }
