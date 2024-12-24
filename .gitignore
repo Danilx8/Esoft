@@ -5,3 +5,4 @@ bin/
 .env
 .vscode
 docs/
+csv/
